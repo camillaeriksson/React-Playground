@@ -1,10 +1,14 @@
 import * as React from "react";
+import Content from "./content";
 import Navbar from "./navbar";
 
 
 export default function Layout() {
     return (
-        <Navbar />
+        <div>
+            <Navbar />
+            <Content />
+        </div>
     )
 }
 
