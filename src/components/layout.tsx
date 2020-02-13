@@ -5,12 +5,19 @@ import Navbar from "./navbar";
 
 export default function Layout() {
     return (
-        <div>
+        <div style={style}>
             <Navbar />
             <Content />
         </div>
     )
 }
+
+const style: React.CSSProperties = {
+    display: "flex",
+    height: "100%",
+    flexDirection: "column"
+}
+
 
 
 // export class App2 extends React.Component<Props> {
