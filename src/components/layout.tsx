@@ -1,5 +1,5 @@
 import * as React from "react";
-import Content from "./content";
+import Content from "./viewcontainer";
 import Navbar from "./navbar";
 
 

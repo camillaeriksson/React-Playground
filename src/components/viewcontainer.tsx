@@ -1,5 +1,5 @@
 import * as React from "react";
-import SectionItem from "./sectionitem"
+import SectionItem from "./navigationitem"
 
 export default function Content() {
     return (
