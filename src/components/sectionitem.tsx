@@ -26,6 +26,7 @@ const style = function (image: string): React.CSSProperties {
         fontWeight: "bolder",
         color: "white",
         letterSpacing: "0.5rem",
-        fontSize: "6rem"
+        fontSize: "6rem",
+        borderRadius: "2rem"
     }
 }
