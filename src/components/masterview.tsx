@@ -12,7 +12,7 @@ export default function MasterView(props: Props) {
     return (
         <div style={style}>
             {sectionIds.map(value => (
-                <NavigationItem view={value} onClick={props.onNavigationItemClick} />
+                <NavigationItem key={value} view={value} onClick={props.onNavigationItemClick} />
             ))}
 
         </div>
