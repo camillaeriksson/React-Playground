@@ -1,5 +1,5 @@
 import * as React from "react";
-import Content from "./viewcontainer";
+import MainView from "./mainview";
 import Navbar from "./navbar";
 
 
@@ -7,7 +7,7 @@ export default function Layout() {
     return (
         <div style={style}>
             <Navbar />
-            <Content />
+            <MainView />
         </div>
     )
 }
