@@ -32,5 +32,9 @@ const picstyle: CSSProperties = {
 }
 
 const textstyle: CSSProperties = {
-    position: "absolute"
+    position: "absolute",
+    color: "white",
+    fontSize: "4rem",
+    letterSpacing: "0.4rem",
+    fontWeight: "bold"
 }

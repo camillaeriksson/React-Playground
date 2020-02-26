@@ -16,7 +16,7 @@ export default class Layout extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            view: "red"
+            view: "main"
         }
     }
 
