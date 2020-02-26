@@ -1,12 +1,12 @@
 import * as React from "react";
-import SectionItem from "./navigationitem"
+import NavigationItem from "./navigationitem"
 
 export default function MainView() {
     return (
         <div style={style}>
-            <SectionItem text="Red" image="../pics/red.jpg" />
-            <SectionItem text="Green" image="../pics/green.jpg" />
-            <SectionItem text="Blue" image="../pics/blue.jpg" />
+            <NavigationItem text="Red" image="../pics/red.jpg" />
+            <NavigationItem text="Green" image="../pics/green.jpg" />
+            <NavigationItem text="Blue" image="../pics/blue.jpg" />
         </div>
     )
 }

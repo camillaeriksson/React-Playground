@@ -5,7 +5,7 @@ interface Props {
     image: string
 }
 
-export default function SectionItem(props: Props) {
+export default function NavigationItem(props: Props) {
     return (
         <div style={style(props.image)}>
             <p>{props.text}</p>

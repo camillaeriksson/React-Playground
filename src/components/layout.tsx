@@ -2,14 +2,33 @@ import * as React from "react";
 import MainView from "./mainview";
 import Navbar from "./navbar";
 
+interface State {
+    view: "main" | "red" | "green" | "blue"
+}
 
-export default function Layout() {
-    return (
-        <div style={style}>
-            <Navbar />
-            <MainView />
-        </div>
-    )
+interface Props {
+
+}
+
+
+
+export default class Layout extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props)
+        this.state = {
+            view: "main"
+        }
+
+    }
+
+    render() {
+        return (
+            <div style={style}>
+                <Navbar />
+                <MainView />
+            </div>
+        )
+    }
 }
 
 const style: React.CSSProperties = {
