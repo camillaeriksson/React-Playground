@@ -1,32 +1,36 @@
-import * as React from "react";
+import React, { CSSProperties } from "react";
+import { ViewType } from "./layout"
 
 interface Props {
-    text: string,
-    image: string
+    view: ViewType
+    onClick: (view: ViewType) => void
 }
 
 export default function NavigationItem(props: Props) {
+    const imageSrc = `../pics/${props.view}.jpg`
+
+    const onClick = () => props.onClick(props.view)
+
     return (
-        <div style={style(props.image)}>
-            <p>{props.text}</p>
+        <div onClick={onClick} style={style}>
+            <img src={imageSrc} style={picstyle} />
+            <p style={textstyle}>{props.view}</p>
         </div>
     )
 }
 
-const style = function (image: string): React.CSSProperties {
-    return {
-        display: "flex",
-        flexGrow: 1,
-        margin: "0.4rem",
-        backgroundImage: "url(" + image + ")",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        justifyContent: "center",
-        alignItems: "center",
-        fontWeight: "bolder",
-        color: "white",
-        letterSpacing: "0.5rem",
-        fontSize: "6rem",
-        borderRadius: "2rem"
-    }
+const style: CSSProperties = {
+    width: "100%",
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center"
+}
+
+const picstyle: CSSProperties = {
+    width: "100%"
+}
+
+const textstyle: CSSProperties = {
+    position: "absolute"
 }

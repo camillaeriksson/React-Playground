@@ -1,10 +1,15 @@
 import * as React from "react";
 
+interface Props {
+    onClickHeader: () => void
+}
 
-export default function Layout() {
+export default function Navbar(props: Props) {
     return (
         <div style={style}>
-            <h1 style={headingStyle}>React Playground</h1>
+            <h1 onClick={props.onClickHeader} style={headingStyle}>
+                React Playground
+            </h1>
         </div>
     )
 }
