@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom'
-import Layout from './layout';
+import Spinner from './spinner';
+
+const Layout = lazy(() => import(/* webpackChunkName: "layout" */ './Layout'))
 
 /**
  * Application top level component. This is a good place for future
@@ -9,8 +11,10 @@ import Layout from './layout';
 export default function App() {
 
     return (
-        <BrowserRouter>
-            <Layout/>
-        </BrowserRouter>
+        <Suspense fallback={<Spinner />}>
+            <BrowserRouter>
+                <Layout />
+            </BrowserRouter>
+        </Suspense>
     )
 }
