@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import Spinner from './spinner';
+import ErrorBoundary from './errorboundary'
 
 const Layout = lazy(() => import(/* webpackChunkName: "layout" */ './Layout'))
 
@@ -11,10 +12,12 @@ const Layout = lazy(() => import(/* webpackChunkName: "layout" */ './Layout'))
 export default function App() {
 
     return (
-        <Suspense fallback={<Spinner />}>
-            <BrowserRouter>
-                <Layout />
-            </BrowserRouter>
-        </Suspense>
+        <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+                <BrowserRouter>
+                    <Layout />
+                </BrowserRouter>
+            </Suspense>
+        </ErrorBoundary>
     )
 }
