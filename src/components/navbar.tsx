@@ -1,28 +1,32 @@
-import * as React from "react";
+import React, { CSSProperties } from 'react';
+import { Link } from 'react-router-dom';
 
-interface Props {
-    onClickHeader: () => void
-}
 
-export default function Navbar(props: Props) {
+/** React function component */
+export default function Navbar() {
     return (
-        <div style={style}>
-            <h1 onClick={props.onClickHeader} style={headingStyle}>
-                React Playground
-            </h1>
+        <div style={navbar}>
+            <Link to="/" style={navbarItem}>React Playground</Link>
         </div>
-    )
+    );
 }
 
-const style = {
-    width: "100%",
-    height: "5rem",
-    background: "black",
-    display: "flex",
-    alignItems: "center"
-}
+const navbar: CSSProperties = {
+    height: '4em',
+    background: 'black',
+    color: '#E1E1E1',
+    display: 'flex',
+    alignItems: 'stretch',
+    padding: '0 1em'
+};
 
-const headingStyle = {
-    marginLeft: "2rem",
-    color: "white"
-}
+const navbarItem: CSSProperties = {
+    fontSize: '1.7em',
+    margin: 0,
+    padding: 0,
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#E1E1E1' 
+};

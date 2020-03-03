@@ -1,60 +1,26 @@
-import * as React from "react"
-import Navbar from "./navbar"
-import ViewContainer from "./viewcontainer"
+import React, { Component, CSSProperties } from 'react';
+import Navbar from './navbar';
+import ViewContainer from './viewContainer/viewContainer';
+import { fullScreen } from '../css';
 
-interface State {
-    view: ViewType
-}
-
-interface Props {
-
-}
-
-export type ViewType = "main" | "red" | "green" | "blue"
-
-export default class Layout extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props)
-        this.state = {
-            view: "main"
-        }
-    }
-
-    navigateToMain = () => {
-        this.setState({ view: "main" })
-    }
-
-    navigateToDetailView = (view: ViewType) => {
-        this.setState({ view: view as any })
-    }
+/** React class component */
+export default class Layout extends Component {
 
     render() {
-        console.log(this.state.view)
-
         return (
-            <div style={style}>
-                <Navbar onClickHeader={this.navigateToMain} />
-                <ViewContainer view={this.state.view} onNavigateToDetailView={this.navigateToDetailView} />
+            <div style={{ ...columnFlex, ...fullScreen, ...background }}>
+                <Navbar/>
+                <ViewContainer/>
             </div>
-        )
+        );
     }
 }
 
-const style: React.CSSProperties = {
-    display: "flex",
-    height: "100%",
-    flexDirection: "column"
+const columnFlex: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+};
+
+const background: CSSProperties = {
+    background: '#1f1f1f'
 }
-
-
-
-// export class App2 extends React.Component<Props> {
-//     render() {
-//         const {compiler, framework} = this.props //deconstruct
-//         return (
-//             <div>
-//                 <h1>Hello from {compiler} and {framework}!</h1>
-//             </div>
-//         )
-//     }
-// }

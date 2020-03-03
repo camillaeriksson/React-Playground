@@ -2783,7 +2783,7 @@ module.exports = ReactPropTypesSecret;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v16.12.0
+/** @license React v16.8.3
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -2805,29 +2805,25 @@ Object.defineProperty(exports, '__esModule', { value: true });
 // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
 // nor polyfill, then a plain number is used for performance.
 var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+
 var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
 var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
 var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
 var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
 var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
 var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-// (unstable) APIs that have been removed. Can we remove the symbols?
-
+var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace;
 var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
 var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
 var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
 var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
 var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
 var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
 
 function isValidElementType(type) {
-  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE);
+  return typeof type === 'string' || typeof type === 'function' ||
+  // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
 }
 
 /**
@@ -2843,11 +2839,12 @@ function isValidElementType(type) {
  * paths. Removing the logging code for production environments will keep the
  * same logic and follow the same code paths.
  */
-var lowPriorityWarningWithoutStack = function () {};
+
+var lowPriorityWarning = function () {};
 
 {
   var printWarning = function (format) {
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key];
     }
 
@@ -2855,11 +2852,9 @@ var lowPriorityWarningWithoutStack = function () {};
     var message = 'Warning: ' + format.replace(/%s/g, function () {
       return args[argIndex++];
     });
-
     if (typeof console !== 'undefined') {
       console.warn(message);
     }
-
     try {
       // --- Welcome to debugging React ---
       // This error was thrown as a convenience so that you can use this stack
@@ -2868,27 +2863,25 @@ var lowPriorityWarningWithoutStack = function () {};
     } catch (x) {}
   };
 
-  lowPriorityWarningWithoutStack = function (condition, format) {
+  lowPriorityWarning = function (condition, format) {
     if (format === undefined) {
-      throw new Error('`lowPriorityWarningWithoutStack(condition, format, ...args)` requires a warning ' + 'message argument');
+      throw new Error('`lowPriorityWarning(condition, format, ...args)` requires a warning ' + 'message argument');
     }
-
     if (!condition) {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
         args[_key2 - 2] = arguments[_key2];
       }
 
-      printWarning.apply(void 0, [format].concat(args));
+      printWarning.apply(undefined, [format].concat(args));
     }
   };
 }
 
-var lowPriorityWarningWithoutStack$1 = lowPriorityWarningWithoutStack;
+var lowPriorityWarning$1 = lowPriorityWarning;
 
 function typeOf(object) {
   if (typeof object === 'object' && object !== null) {
     var $$typeof = object.$$typeof;
-
     switch ($$typeof) {
       case REACT_ELEMENT_TYPE:
         var type = object.type;
@@ -2901,32 +2894,29 @@ function typeOf(object) {
           case REACT_STRICT_MODE_TYPE:
           case REACT_SUSPENSE_TYPE:
             return type;
-
           default:
             var $$typeofType = type && type.$$typeof;
 
             switch ($$typeofType) {
               case REACT_CONTEXT_TYPE:
               case REACT_FORWARD_REF_TYPE:
-              case REACT_LAZY_TYPE:
-              case REACT_MEMO_TYPE:
               case REACT_PROVIDER_TYPE:
                 return $$typeofType;
-
               default:
                 return $$typeof;
             }
-
         }
-
+      case REACT_LAZY_TYPE:
+      case REACT_MEMO_TYPE:
       case REACT_PORTAL_TYPE:
         return $$typeof;
     }
   }
 
   return undefined;
-} // AsyncMode is deprecated along with isAsyncMode
+}
 
+// AsyncMode is deprecated along with isAsyncMode
 var AsyncMode = REACT_ASYNC_MODE_TYPE;
 var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
 var ContextConsumer = REACT_CONTEXT_TYPE;
@@ -2940,16 +2930,17 @@ var Portal = REACT_PORTAL_TYPE;
 var Profiler = REACT_PROFILER_TYPE;
 var StrictMode = REACT_STRICT_MODE_TYPE;
 var Suspense = REACT_SUSPENSE_TYPE;
-var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
 
+var hasWarnedAboutDeprecatedIsAsyncMode = false;
+
+// AsyncMode should be deprecated
 function isAsyncMode(object) {
   {
     if (!hasWarnedAboutDeprecatedIsAsyncMode) {
       hasWarnedAboutDeprecatedIsAsyncMode = true;
-      lowPriorityWarningWithoutStack$1(false, 'The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+      lowPriorityWarning$1(false, 'The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
     }
   }
-
   return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
 }
 function isConcurrentMode(object) {
@@ -4443,54 +4434,22 @@ module.exports = g;
 
 "use strict";
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "react"));
-var layout_1 = __importDefault(__webpack_require__(/*! ./layout */ "./src/components/layout.tsx"));
-var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-function App() {
-    return (React.createElement(react_router_dom_1.BrowserRouter, null,
-        React.createElement(layout_1.default, null)));
-}
-exports.default = App;
-
-
-/***/ }),
-
-/***/ "./src/components/detailview.tsx":
-/*!***************************************!*\
-  !*** ./src/components/detailview.tsx ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-function DetailView(props) {
-    var imageSrc = "../pics/" + props.view + ".jpg";
-    return (react_1.default.createElement("div", { style: style },
-        react_1.default.createElement("img", { src: imageSrc })));
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var layout_1 = __importDefault(__webpack_require__(/*! ./layout */ "./src/components/layout.tsx"));
+/**
+ * Application top level component. This is a good place for future
+ * top level components - ErrorBoundary, Provider & Suspense, etc.
+ */
+function App() {
+    return (react_1.default.createElement(react_router_dom_1.BrowserRouter, null,
+        react_1.default.createElement(layout_1.default, null)));
 }
-exports.default = DetailView;
-var style = {
-    display: "flex",
-    flexDirection: "column",
-    flexGrow: 1,
-};
+exports.default = App;
 
 
 /***/ }),
@@ -4517,6 +4476,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -4528,76 +4498,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "react"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 var navbar_1 = __importDefault(__webpack_require__(/*! ./navbar */ "./src/components/navbar.tsx"));
-var viewcontainer_1 = __importDefault(__webpack_require__(/*! ./viewcontainer */ "./src/components/viewcontainer.tsx"));
+var viewContainer_1 = __importDefault(__webpack_require__(/*! ./viewContainer/viewContainer */ "./src/components/viewContainer/viewContainer.tsx"));
+var css_1 = __webpack_require__(/*! ../css */ "./src/css.tsx");
+/** React class component */
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
-    function Layout(props) {
-        var _this = _super.call(this, props) || this;
-        _this.navigateToMain = function () {
-            _this.setState({ view: "main" });
-        };
-        _this.navigateToDetailView = function (view) {
-            _this.setState({ view: view });
-        };
-        _this.state = {
-            view: "main"
-        };
-        return _this;
+    function Layout() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Layout.prototype.render = function () {
-        console.log(this.state.view);
-        return (React.createElement("div", { style: style },
-            React.createElement(navbar_1.default, { onClickHeader: this.navigateToMain }),
-            React.createElement(viewcontainer_1.default, { view: this.state.view, onNavigateToDetailView: this.navigateToDetailView })));
+        return (react_1.default.createElement("div", { style: __assign(__assign(__assign({}, columnFlex), css_1.fullScreen), background) },
+            react_1.default.createElement(navbar_1.default, null),
+            react_1.default.createElement(viewContainer_1.default, null)));
     };
     return Layout;
-}(React.Component));
+}(react_1.Component));
 exports.default = Layout;
-var style = {
-    display: "flex",
-    height: "100%",
-    flexDirection: "column"
+var columnFlex = {
+    display: 'flex',
+    flexDirection: 'column',
 };
-// export class App2 extends React.Component<Props> {
-//     render() {
-//         const {compiler, framework} = this.props //deconstruct
-//         return (
-//             <div>
-//                 <h1>Hello from {compiler} and {framework}!</h1>
-//             </div>
-//         )
-//     }
-// }
-
-
-/***/ }),
-
-/***/ "./src/components/masterview.tsx":
-/*!***************************************!*\
-  !*** ./src/components/masterview.tsx ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-var navigationitem_1 = __importDefault(__webpack_require__(/*! ./navigationitem */ "./src/components/navigationitem.tsx"));
-function MasterView(props) {
-    var sectionIds = ["red", "green", "blue"];
-    return (react_1.default.createElement("div", { style: style }, sectionIds.map(function (value) { return (react_1.default.createElement(navigationitem_1.default, { key: value, view: value, onClick: props.onNavigationItemClick })); })));
-}
-exports.default = MasterView;
-var style = {
-    display: "flex",
-    flexDirection: "column",
-    flexGrow: 1,
+var background = {
+    background: '#1f1f1f'
 };
 
 
@@ -4612,39 +4536,44 @@ var style = {
 
 "use strict";
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "react"));
-function Navbar(props) {
-    return (React.createElement("div", { style: style },
-        React.createElement("h1", { onClick: props.onClickHeader, style: headingStyle }, "React Playground")));
+var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/** React function component */
+function Navbar() {
+    return (react_1.default.createElement("div", { style: navbar },
+        react_1.default.createElement(react_router_dom_1.Link, { to: "/", style: navbarItem }, "React Playground")));
 }
 exports.default = Navbar;
-var style = {
-    width: "100%",
-    height: "5rem",
-    background: "black",
-    display: "flex",
-    alignItems: "center"
+var navbar = {
+    height: '4em',
+    background: 'black',
+    color: '#E1E1E1',
+    display: 'flex',
+    alignItems: 'stretch',
+    padding: '0 1em'
 };
-var headingStyle = {
-    marginLeft: "2rem",
-    color: "white"
+var navbarItem = {
+    fontSize: '1.7em',
+    margin: 0,
+    padding: 0,
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#E1E1E1'
 };
 
 
 /***/ }),
 
-/***/ "./src/components/navigationitem.tsx":
-/*!*******************************************!*\
-  !*** ./src/components/navigationitem.tsx ***!
-  \*******************************************/
+/***/ "./src/components/viewContainer/detailView.tsx":
+/*!*****************************************************!*\
+  !*** ./src/components/viewContainer/detailView.tsx ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4655,65 +4584,174 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
-function NavigationItem(props) {
-    var imageSrc = "../pics/" + props.view + ".jpg";
-    var onClick = function () { return props.onClick(props.view); };
-    return (react_1.default.createElement("div", { onClick: onClick, style: style },
-        react_1.default.createElement("img", { src: imageSrc, style: picstyle }),
-        react_1.default.createElement("p", { style: textstyle }, props.view)));
+var css_1 = __webpack_require__(/*! ../../css */ "./src/css.tsx");
+function DetailView(props) {
+    var imageSrc = "../assets/" + props.location.pathname + ".jpg";
+    return (react_1.default.createElement("div", { style: container },
+        react_1.default.createElement("img", { src: imageSrc, style: css_1.fullscreenAbsolute })));
 }
-exports.default = NavigationItem;
-var style = {
-    width: "100%",
-    display: "flex",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center"
-};
-var picstyle = {
-    width: "100%"
-};
-var textstyle = {
-    position: "absolute",
-    color: "white",
-    fontSize: "4rem",
-    letterSpacing: "0.4rem",
-    fontWeight: "bold"
+exports.default = DetailView;
+var container = {
+    position: 'relative',
+    width: '100%',
+    height: '100%'
 };
 
 
 /***/ }),
 
-/***/ "./src/components/viewcontainer.tsx":
-/*!******************************************!*\
-  !*** ./src/components/viewcontainer.tsx ***!
-  \******************************************/
+/***/ "./src/components/viewContainer/masterView.tsx":
+/*!*****************************************************!*\
+  !*** ./src/components/viewContainer/masterView.tsx ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
+var navigationItem_1 = __importDefault(__webpack_require__(/*! ./navigationItem */ "./src/components/viewContainer/navigationItem.tsx"));
+/** React function component */
+function MasterView() {
+    var detailViews = ['forest', 'sky', 'desert'];
+    return (react_1.default.createElement("div", { style: container }, detailViews.map(function (value) { return react_1.default.createElement(navigationItem_1.default, { key: value, id: value }); })));
+}
+exports.default = MasterView;
+var container = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    margin: '0.5em',
+    justifyItems: 'stretch',
+    alignItems: 'stretch',
+    gridTemplateColumns: '50% 50%',
+};
+
+
+/***/ }),
+
+/***/ "./src/components/viewContainer/navigationItem.tsx":
+/*!*********************************************************!*\
+  !*** ./src/components/viewContainer/navigationItem.tsx ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "react"));
-var masterview_1 = __importDefault(__webpack_require__(/*! ./masterview */ "./src/components/masterview.tsx"));
-var detailview_1 = __importDefault(__webpack_require__(/*! ./detailview */ "./src/components/detailview.tsx"));
-function ViewContainer(props) {
-    if (props.view === "main") {
-        return React.createElement(masterview_1.default, { onNavigationItemClick: props.onNavigateToDetailView });
-    }
-    return React.createElement(detailview_1.default, { view: props.view });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var css_1 = __webpack_require__(/*! ../../css */ "./src/css.tsx");
+/** React function component */
+function NavigationItem(props) {
+    var imageSrc = "../assets/" + props.id + ".jpg";
+    return (react_1.default.createElement(react_router_dom_1.Link, { to: "/" + props.id, style: __assign(__assign({}, gridItem), css_1.centeredContent) },
+        react_1.default.createElement("img", { src: imageSrc, style: css_1.fullscreenAbsolute }),
+        react_1.default.createElement("h1", { style: __assign(__assign({}, centeredAbsolute), appearance) }, props.id)));
+}
+exports.default = NavigationItem;
+var gridItem = {
+    position: 'relative',
+    margin: '0.5em',
+    background: '#808080',
+    height: '100%',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    cursor: 'pointer'
+};
+var centeredAbsolute = {
+    position: 'absolute',
+    margin: 0,
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)'
+};
+var appearance = {
+    color: '#1E1E1E',
+    textShadow: '0 0 3px white'
+};
+
+
+/***/ }),
+
+/***/ "./src/components/viewContainer/viewContainer.tsx":
+/*!********************************************************!*\
+  !*** ./src/components/viewContainer/viewContainer.tsx ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
+var detailView_1 = __importDefault(__webpack_require__(/*! ./detailView */ "./src/components/viewContainer/detailView.tsx"));
+var masterView_1 = __importDefault(__webpack_require__(/*! ./masterView */ "./src/components/viewContainer/masterView.tsx"));
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/** React function component */
+function ViewContainer() {
+    return (react_1.default.createElement(react_router_dom_1.Switch, null,
+        react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/" },
+            react_1.default.createElement(masterView_1.default, null)),
+        react_1.default.createElement(react_router_dom_1.Route, { path: "/forest", component: detailView_1.default }),
+        react_1.default.createElement(react_router_dom_1.Route, { path: "/sky", component: detailView_1.default }),
+        react_1.default.createElement(react_router_dom_1.Route, { path: "/desert", component: detailView_1.default }),
+        react_1.default.createElement(react_router_dom_1.Route, null, "\uD83C\uDF08\uD83C\uDF08\uD83C\uDF08\uD83C\uDF08\uD83C\uDF08\uD83C\uDF08\uD83C\uDF08\uD83C\uDF08\uD83D\uDC1E\uD83D\uDC0C")));
 }
 exports.default = ViewContainer;
+
+
+/***/ }),
+
+/***/ "./src/css.tsx":
+/*!*********************!*\
+  !*** ./src/css.tsx ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.centeredContent = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
+};
+exports.fullScreen = {
+    width: '100%',
+    height: '100%'
+};
+exports.fullscreenAbsolute = {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover'
+};
 
 
 /***/ }),
@@ -4727,21 +4765,14 @@ exports.default = ViewContainer;
 
 "use strict";
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "react"));
-var ReactDOM = __importStar(__webpack_require__(/*! react-dom */ "react-dom"));
+var react_1 = __importDefault(__webpack_require__(/*! react */ "react"));
+var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "react-dom"));
 var app_1 = __importDefault(__webpack_require__(/*! ./components/app */ "./src/components/app.tsx"));
-ReactDOM.render(React.createElement(app_1.default, null), document.getElementById("example"));
+react_dom_1.default.render(react_1.default.createElement(app_1.default, null), document.getElementById("app-container"));
 
 
 /***/ }),
