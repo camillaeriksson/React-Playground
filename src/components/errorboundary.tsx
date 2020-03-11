@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { Component, CSSProperties } from 'react';
+import { centeredContent } from '../css';
 
-interface Props {
-}
-
+interface Props {}
 interface State {
-    hasError: boolean
+    hasError: boolean;
 }
 
-class ErrorBoundary extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props)
-        this.state = { hasError: false }
+export default class ErrorBoundary extends Component<Props, State> {
+    state = {
+        hasError: false
+    };
+
+    reloadPage = () => {
+        window.URL = window.URL;
     }
 
-
-    static getDerivedStateFromError() {
-        return { hasError: true }
+    componentDidCatch() {
+        this.setState({ hasError: true });
     }
-
 
     render() {
         if (this.state.hasError) {
-            return <h1>Something went wrong!</h1>
+            return (
+                <div style={{ ...centeredContent, ...appearance }}>
+                    <h2>¡Could not load component!</h2>
+                    <b><a href="" onClick={this.reloadPage}>Reload</a></b>
+                </div>
+            );
         }
+
         return this.props.children;
     }
 }
 
-export default ErrorBoundary
+export function testErrorBoundary() {
+    const nullVariable: any = null;
+    console.log(nullVariable.somethingThatDoesNotExist);
+}
+
+const appearance: CSSProperties = {
+    background: 'white',
+    color: '#1E1E1E',
+    height: '100%'
+};

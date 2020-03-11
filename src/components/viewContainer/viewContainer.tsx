@@ -1,22 +1,25 @@
-import React from 'react';
-import DetialView from './detailView';
-import MasterView from './masterView';
-import { Switch, Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Spinner from '../spinner';
+
+const MasterView = React.lazy(() => import(/* webpackChunkName: "masterView" */ './masterView'));
+const DetialView = React.lazy(() => import(/* webpackChunkName: "detailView" */ './detailView'));
 
 /** React function component */
 export default function ViewContainer() {
 
+    const detailViews = ['forest', 'sky', 'desert'];
+
     return (
-        <Switch>
-            <Route exact path="/">
-                <MasterView />
-            </Route>
-            <Route path="/forest" component={DetialView} />
-            <Route path="/sky" component={DetialView} />
-            <Route path="/desert" component={DetialView} />
-            
-            <Route>🌈🌈🌈🌈🌈🌈🌈🌈🐞🐌</Route>
-        
-        </Switch>
-    )
+        <Suspense fallback={<Spinner/>}>
+            <Switch>
+                <Route exact path="/" render={() =>
+                    <MasterView detailViews={detailViews}/>
+                }/>
+                    <Route path="/forest" component={DetialView}/>
+                    <Route path="/sky" component={DetialView}/>
+                    <Route path="/desert" component={DetialView}/>
+            </Switch>
+        </Suspense>
+    );
 }

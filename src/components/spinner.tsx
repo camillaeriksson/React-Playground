@@ -1,11 +1,16 @@
-import React from 'react';
-import { WaveSpinner } from "react-spinners-kit";
+import React, { CSSProperties } from 'react';
+import { PropagateLoader } from 'react-spinners';
 import { centeredContent, fullScreen } from '../css';
 
-export default function () {
+export default function() {
     return (
-        <div style={{ ...centeredContent, ...fullScreen }}>
-            <WaveSpinner size={30} color="#686769" />
+        <div style={{ ...centeredContent, ...fullScreen}}>
+            <PropagateLoader color="white" size={1.5} sizeUnit="em"/>
         </div>
     );
+}
+
+const appearance: CSSProperties = {
+    color: 'white',
+    fontSize: '1.5em'
 }

@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 
-
 /** React function component */
 export default function Navbar() {
+
     return (
         <div style={navbar}>
             <Link to="/" style={navbarItem}>React Playground</Link>
@@ -13,8 +13,8 @@ export default function Navbar() {
 
 const navbar: CSSProperties = {
     height: '4em',
+    minHeight: '4em',
     background: 'black',
-    color: '#E1E1E1',
     display: 'flex',
     alignItems: 'stretch',
     padding: '0 1em'
@@ -28,5 +28,5 @@ const navbarItem: CSSProperties = {
     alignItems: 'center',
     cursor: 'pointer',
     textDecoration: 'none',
-    color: '#E1E1E1' 
+    color: '#E1E1E1',
 };

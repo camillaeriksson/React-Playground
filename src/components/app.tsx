@@ -1,23 +1,49 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import React, { Suspense, Component, CSSProperties } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Spinner from './spinner';
-import ErrorBoundary from './errorboundary'
+import ErrorBoundary from './errorBoundary';
+import { WelcomeScreen } from './welcomeScreen';
+import { centeredContent, fullScreen } from '../css';
+import { Monkey } from './monkey';
 
-const Layout = lazy(() => import(/* webpackChunkName: "layout" */ './Layout'))
+const Layout = React.lazy(() => import(/* webpackChunkName: "layout" */ './layout'));
+
+interface Props {}
+interface State {
+    isWelcomeScreenEnabled: boolean
+}
 
 /**
  * Application top level component. This is a good place for future
  * top level components - ErrorBoundary, Provider & Suspense, etc.
  */
-export default function App() {
+export default class App extends Component<Props, State> {
+    state: State = {
+        isWelcomeScreenEnabled: true
+    }
 
-    return (
-        <ErrorBoundary>
-            <Suspense fallback={<Spinner />}>
-                <BrowserRouter>
-                    <Layout />
-                </BrowserRouter>
+    private removeWelcomeScreen = () => {
+        this.setState({ isWelcomeScreenEnabled: false });
+    }
+
+    private get WelcomeScreen() {
+        if (this.state.isWelcomeScreenEnabled) {
+            return <WelcomeScreen dismissed={this.removeWelcomeScreen}/>
+        }
+    }
+
+    render () {
+        return (
+            <Suspense fallback={<Spinner/>}>
+                <Router>
+                    <ErrorBoundary>
+                        {this.WelcomeScreen}
+                        <Suspense fallback={<Monkey/>}>
+                            <Layout/>
+                        </Suspense>
+                    </ErrorBoundary>
+                </Router>
             </Suspense>
-        </ErrorBoundary>
-    )
+        )
+    }
 }

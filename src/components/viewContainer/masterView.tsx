@@ -1,13 +1,21 @@
 import React, { CSSProperties } from 'react';
-import NavigationItem from './navigationItem';
+import ViewSection from './viewSection';
+import ImageLink from './ImageLink';
+
+interface Props {
+    detailViews: string[]
+}
 
 /** React function component */
-export default function MasterView() {
-    const detailViews = ['forest', 'sky', 'desert'];
+export default function MasterView(props: Props) {
 
     return (
         <div style={container}>
-            {detailViews.map((value) => <NavigationItem key={value} id={value} />)}
+            {props.detailViews.map((view) => (
+                <ViewSection key={view}>
+                    <ImageLink view={view}/>
+                </ViewSection>
+            ))}
         </div>
     );
 }
@@ -16,8 +24,5 @@ const container: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    margin: '0.5em',
-    justifyItems: 'stretch',
-    alignItems: 'stretch',
-    gridTemplateColumns: '50% 50%',
+    margin: '0.5em'
 }

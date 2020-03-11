@@ -3,14 +3,20 @@ import Navbar from './navbar';
 import ViewContainer from './viewContainer/viewContainer';
 import { fullScreen } from '../css';
 
+interface Props {}
+
+interface State {
+    currentView: string
+}
+
 /** React class component */
-export default class Layout extends Component {
+export default class Layout extends Component<Props, State> {
 
     render() {
         return (
             <div style={{ ...columnFlex, ...fullScreen, ...background }}>
-                <Navbar />
-                <ViewContainer />
+                <Navbar/>
+                <ViewContainer/>
             </div>
         );
     }
